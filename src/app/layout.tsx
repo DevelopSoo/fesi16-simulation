@@ -1,6 +1,8 @@
-// app/layout.tsx
+// src/app/layout.tsx
 
+import QueryProvider from "@/providers/QueryProvider";
 import "./globals.css";
+import { MSWProvider } from "@/providers/MSWProvider";
 
 export default function RootLayout({
   children,
@@ -9,7 +11,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <MSWProvider>
+          <h1>prerendering</h1>
+          <QueryProvider>{children}</QueryProvider>
+        </MSWProvider>
+      </body>
     </html>
   );
 }
