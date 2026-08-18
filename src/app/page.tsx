@@ -1,7 +1,4 @@
 // src/app/page.tsx
-
-"use client";
-
 export default function Home() {
-  return <></>;
+  return <h1>메인 페이지</h1>;
 }

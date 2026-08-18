@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "test": "jest",
+    "test:changed": "jest --onlyChanged",
     "server": "json-server --watch db.json --port=4000",
     "test:playwright": "playwright test",
     "test:playwright:ui": "playwright test --ui",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -57,9 +59,12 @@
     "chromatic": "^18.2.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-storybook": "^10.5.8",
+    "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
+    "lint-staged": "^17.3.0",
     "msw": "^2.11.2",
     "playwright": "latest",
     "prettier": "^3.9.6",
