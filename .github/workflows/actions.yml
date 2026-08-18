@@ -1,23 +1,26 @@
-# .github/workflows/actions.yml
-
-name: Github Actions로 테스트 자동화하기
+name: output 연습
 on: push
 
 jobs:
-  test:
+  create-output:
     runs-on: ubuntu-latest
+    # 현재 job의 step 중에 save-output이라는 id를 가진 step의
+    # output의 키가 message인 값을 abc라는 이름으로 내보내기 할거야.
+    outputs:
+      abc: ${{ steps.save-output.outputs.message }}
     steps:
-      - name: Github Repository 불러오기
-        uses: actions/checkout@v6
+      - name: output 저장
+        id: save-output
+        run: echo "message=안녕" >> $GITHUB_OUTPUT
 
-      - name: Node.js 설치하기
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-          cache: "npm"
+      - name: output 사용
+        run: echo "저장된 키는 ${{ steps.save-output.outputs.message }}입니다."
 
-      - name: 의존성(라이브러리) 설치
-        run: npm ci
-
-      - name: 테스트 실행하기
-        run: npm run test
+  use-output:
+    runs-on: ubuntu-latest
+    # 위의 job(create-output)에서 만든 outputs를 해당 job(use-output)에서 사용하기 위해선
+    # 위 job(create-output)이 실패하면 안되기 때문에 needs가 필요합니다.
+    needs: create-output
+    steps:
+      - name: output 사용
+        run: echo "이 job에서 사용할 output은 ${{ needs.create-output.outputs.abc }}입니다."
